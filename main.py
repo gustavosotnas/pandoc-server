@@ -7,10 +7,10 @@ import logging
 def pandoc(m, hl=None):
 
     ret = False
-    tf, tp = mkstemp(suffix=".pdf")
+    tf, tp = mkstemp(suffix=".odt")
     try:
         cmd = ["pandoc", 
-            "-t", "latex", 
+            "-t", "odt", 
             "-o", tp]
         if hl is not None:
             cmd.insert(1, "--highlight-style")
@@ -51,7 +51,7 @@ def app(environ, start_response):
     title = p.get("t", ["article"])[0]
 
     try:
-        pdf = pandoc(m, hl)
+        odt = pandoc(m, hl)
     except Exception, e:
         response_headers = [('Content-Type', 'text/plain')]
         set_cors(response_headers, environ)
@@ -59,13 +59,13 @@ def app(environ, start_response):
         return [""]
 
     response_headers = [
-        ('Content-Type', 'application/pdf'),
-        ('Content-Disposition', 'attachment; filename=' + title + '.pdf'),
+        ('Content-Type', 'application/vnd.oasis.opendocument.text'),
+        ('Content-Disposition', 'attachment; filename=' + title + '.odt'),
         ('Content-Transfer-Encoding', 'binary')
     ]
     set_cors(response_headers, environ)
     start_response('200 OK', response_headers)
-    return [pdf]
+    return [odt]
 
 
 if __name__ == '__main__':
