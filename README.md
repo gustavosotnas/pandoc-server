@@ -1,10 +1,8 @@
 # pandoc-server
 
-A WSGI service that allow you to create pdf from markdown
+A WSGI service that allow you to create ODT from markdown
 
 # Installation
-
-You must install "pandoc", "texlive" and additionnal dependencies if needed to build specific PDF.
 
 Get the repository:
 
@@ -19,9 +17,9 @@ Launch:
 
 ```
 python main.py
-
-# or
-
+```
+or
+```
 gunincorn -w 4 -b 0.0.0.0:8000 main:app
 ```
 
