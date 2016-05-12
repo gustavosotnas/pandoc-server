@@ -70,6 +70,10 @@ def app(environ, start_response):
 
 if __name__ == '__main__':
     from wsgiref.simple_server import make_server
-    srv = make_server('localhost', 8080, app)
-    logging.info("Listening 8080")
+    server_address = 'localhost'
+    port = 8090
+    srv = make_server(server_address, port, app)
+    listening_string = "Listening " + server_address + ":" + str(port)
+    logging.info(listening_string)
+    print listening_string
     srv.serve_forever()
